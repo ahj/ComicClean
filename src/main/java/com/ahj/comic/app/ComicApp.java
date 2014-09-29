@@ -27,14 +27,14 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import com.ahj.comic.Comic;
+import com.ahj.comic.ComicBook;
 import com.ahj.comic.ComicImage;
 import com.ahj.comic.app.action.FileOpenAction;
 import com.ahj.comic.app.action.FileSaveAsAction;
 import com.ahj.comic.app.core.Application;
 import com.ahj.comic.app.core.BaseAction;
 import com.ahj.comic.app.core.ButtonGroupHelper;
-import com.ahj.comic.util.FileType;
+import com.ahj.comic.util.ComicBookFormat;
 import com.ahj.comic.util.FileUtil;
 
 public class ComicApp extends JFrame implements Application {
@@ -42,7 +42,6 @@ public class ComicApp extends JFrame implements Application {
 
 	private JList<ComicImage> list;
 	private JLabel view;
-	private Comic model = new Comic();
 	
 	public ComicApp() {
 		super("Comic Converter");
@@ -133,9 +132,9 @@ public class ComicApp extends JFrame implements Application {
     		listModel.clear();
 	    	
     		try {
-	    		List<ComicImage> images = model.read(file, workDir);
+	    		ComicBook book = ComicBook.read(file, workDir);
 	    	
-	    		for (ComicImage image : images) {
+	    		for (ComicImage image : book.getImages()) {
 	    			listModel.addElement(image);
 	    		}
     		}
@@ -159,11 +158,14 @@ public class ComicApp extends JFrame implements Application {
 	    if (returnVal == JFileChooser.APPROVE_OPTION) {
 	    	File file = chooser.getSelectedFile();
 	    	FileNameExtensionFilter filter = (FileNameExtensionFilter)chooser.getFileFilter();
-	    	FileType type = FileType.extensionOf(filter.getExtensions()[0]);
+	    	ComicBookFormat type = ComicBookFormat.extensionOf(filter.getExtensions()[0]);
 	    	List<ComicImage> list = listModelToList();
 
 	    	try {
-	    		model.write(file, type, list);
+	    		//TODO Keep reference to book around
+	    		ComicBook book = new ComicBook(list);
+	    		
+	    		book.write(file, type);
     		}
     		catch (IOException e) {
     			e.printStackTrace();

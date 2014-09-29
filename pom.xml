@@ -7,6 +7,7 @@
   <description>My stuff</description>
   <dependencies>
   	<dependency>
+		<!-- https://github.com/edmund-wagner/junrar -->
   		<groupId>com.github.junrar</groupId>
   		<artifactId>junrar</artifactId>
   		<version>0.7</version>
@@ -32,7 +33,6 @@
 		<version>1.7.7</version>
 	</dependency>
 	<dependency>
-		<!-- https://github.com/edmund-wagner/junrar -->
 		<groupId>org.slf4j</groupId>
 		<artifactId>slf4j-log4j12</artifactId>
 		<version>1.7.7</version>
@@ -41,6 +41,11 @@
 		<groupId>org.apache.commons</groupId>
 		<artifactId>commons-compress</artifactId>
 		<version>1.8.1</version>
+	</dependency>
+	<dependency>
+		<groupId>junit</groupId>
+		<artifactId>junit</artifactId>
+		<version>4.11</version>
 	</dependency>
   </dependencies>
 </project>

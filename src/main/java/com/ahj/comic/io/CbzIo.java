@@ -20,7 +20,7 @@ import javax.imageio.ImageIO;
 import org.apache.commons.io.IOUtils;
 
 import com.ahj.comic.ComicImage;
-import com.ahj.comic.util.FileType;
+import com.ahj.comic.util.ComicBookFormat;
 
 /**
  * Cbz (zip) Comic Book File Format IO module.
@@ -30,7 +30,7 @@ import com.ahj.comic.util.FileType;
  */
 public class CbzIo extends AbstractIo {
 	public CbzIo() {
-		super(FileType.CBZ);
+		super(ComicBookFormat.CBZ);
 	}
 
 	@Override
@@ -48,20 +48,30 @@ public class CbzIo extends AbstractIo {
 				InputStream eis = null;
 				OutputStream fos = null;
 				
-				if (entry.isDirectory()) {
+				if (entry == null) {
 					continue;
 				}
 				
-				File imageFile = new File(workDir + File.separator + entry.getName());
+				File imageFile = new File(workDir, entry.getName());
+				
+ 				if (entry.isDirectory() ||
+ 				    // Nasty hack to avoid outputing metadata folders that
+ 				    // automatically get created on OS X platform
+ 					(entry.getName().indexOf("__MACOSX") >= 0)) {
+					continue;
+				}
 				
 				// Standard un-zip...
 				try {
-					imageFile.mkdirs();
-
+					imageFile.getParentFile().mkdirs();
+					
 					eis = zipFile.getInputStream(entry);
 					fos = new FileOutputStream(imageFile);
 					
 					IOUtils.copy(eis, fos);
+				}
+				catch (Exception e) {
+					e.printStackTrace();
 				}
 				finally {
 					if (eis != null) {
@@ -74,9 +84,8 @@ public class CbzIo extends AbstractIo {
 
 				// Now read the 'just expanded' zip artifact as an image
 				try {
-					BufferedImage image = ImageIO.read(eis);
-					Image thumbnail = createThumbnail(file);
-	               	
+					BufferedImage image = ImageIO.read(imageFile);
+					Image thumbnail = createThumbnail(image);
 					ComicImage page = new ComicImage(entry.getName(), image.getWidth(), image.getHeight(), imageFile, thumbnail);
 					
 					images.add(page);

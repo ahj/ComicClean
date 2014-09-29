@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.ahj.comic.util.FileType;
+import com.ahj.comic.util.ComicBookFormat;
 
 public class IoRegistry {
     public final static IoRegistry INSTANCE = new IoRegistry();
@@ -19,7 +19,7 @@ public class IoRegistry {
 		entries.add(new CbtIo());
 	}
 	
-	public Set<Io> getModulesByFileType(FileType fileType) {
+	public Set<Io> getModulesByFileType(ComicBookFormat fileType) {
 		Set<Io> set = new HashSet<Io>();
 		
 		for (Io io : entries) {

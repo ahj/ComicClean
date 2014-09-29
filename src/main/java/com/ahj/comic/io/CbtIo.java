@@ -21,7 +21,7 @@ import org.apache.commons.compress.compressors.gzip.GzipCompressorOutputStream;
 import org.apache.pdfbox.io.IOUtils;
 
 import com.ahj.comic.ComicImage;
-import com.ahj.comic.util.FileType;
+import com.ahj.comic.util.ComicBookFormat;
 
 /**
  * Cbt (tar) Comic Book File Format IO module.
@@ -32,7 +32,7 @@ import com.ahj.comic.util.FileType;
  */
 public class CbtIo extends AbstractIo {
 	public CbtIo() {
-		super(FileType.CBT);
+		super(ComicBookFormat.CBT);
 	}
 
 	@Override

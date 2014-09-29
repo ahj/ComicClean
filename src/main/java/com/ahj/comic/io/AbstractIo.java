@@ -13,26 +13,30 @@ import javax.imageio.ImageIO;
 import org.imgscalr.Scalr;
 import org.imgscalr.Scalr.Method;
 
-import com.ahj.comic.util.FileType;
+import com.ahj.comic.util.ComicBookFormat;
 
 public abstract class AbstractIo implements Io {
-	private Set<FileType> fileTypes = new HashSet<FileType>();
+	private Set<ComicBookFormat> fileTypes = new HashSet<ComicBookFormat>();
 	
-	public AbstractIo(FileType ... fileTypes) {
+	public AbstractIo(ComicBookFormat ... fileTypes) {
 		super();
 		
-		for (FileType fileType : fileTypes) {
+		for (ComicBookFormat fileType : fileTypes) {
 			this.fileTypes.add(fileType);
 		}
 	}
 	
 	@Override
-	public Set<FileType> getFileTypes() {
+	public Set<ComicBookFormat> getFileTypes() {
 		return Collections.unmodifiableSet(fileTypes);
 	}
 	
 	protected Image createThumbnail(File source) throws IOException {
        	return createThumbnail(ImageIO.read(source), 200, 200);
+	}
+
+	protected Image createThumbnail(BufferedImage source) {
+		return createThumbnail(source, 200, 200);
 	}
 
 	protected Image createThumbnail(BufferedImage source, int width, int height) {

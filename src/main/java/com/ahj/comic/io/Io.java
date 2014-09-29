@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Set;
 
 import com.ahj.comic.ComicImage;
-import com.ahj.comic.util.FileType;
+import com.ahj.comic.util.ComicBookFormat;
 
 public interface Io {
-	Set<FileType> getFileTypes();
+	Set<ComicBookFormat> getFileTypes();
 	List<ComicImage> read(File file, File workDir) throws IOException;
 	void write(File file, List<ComicImage> images) throws IOException;
 }

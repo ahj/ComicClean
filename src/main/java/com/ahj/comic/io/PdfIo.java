@@ -27,7 +27,7 @@ import org.apache.pdfbox.pdmodel.graphics.xobject.PDXObject;
 import org.apache.pdfbox.pdmodel.graphics.xobject.PDXObjectImage;
 
 import com.ahj.comic.ComicImage;
-import com.ahj.comic.util.FileType;
+import com.ahj.comic.util.ComicBookFormat;
 
 /**
  * Pdf Comic Book File Format IO module.
@@ -39,7 +39,7 @@ import com.ahj.comic.util.FileType;
 public class PdfIo extends AbstractIo {
 
 	public PdfIo() {
-		super(FileType.PDF);
+		super(ComicBookFormat.PDF);
 	}
 	
 	@Override

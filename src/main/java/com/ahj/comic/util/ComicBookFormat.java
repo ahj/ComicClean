@@ -1,6 +1,6 @@
 package com.ahj.comic.util;
 
-public enum FileType {
+public enum ComicBookFormat {
 	CBR("cbr"),
 	CBZ("cbz"),
 	CBT("cbt"),
@@ -8,7 +8,7 @@ public enum FileType {
 	
 	private String extension;
 	
-	private FileType(String extension) {
+	private ComicBookFormat(String extension) {
 		this.extension = extension;
 	}
 	
@@ -16,8 +16,8 @@ public enum FileType {
 		return extension;
 	}
 	
-	public static FileType extensionOf(String extension) {
-		for (FileType type : FileType.values()) {
+	public static ComicBookFormat extensionOf(String extension) {
+		for (ComicBookFormat type : ComicBookFormat.values()) {
 			if (type.getExtension().equals(extension)) {
 				return type;
 			}

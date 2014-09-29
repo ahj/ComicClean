@@ -15,7 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.ahj.comic.ComicImage;
-import com.ahj.comic.util.FileType;
+import com.ahj.comic.util.ComicBookFormat;
 import com.github.junrar.Archive;
 import com.github.junrar.exception.RarException;
 import com.github.junrar.rarfile.FileHeader;
@@ -31,7 +31,7 @@ public class CbrIo extends AbstractIo {
 	public static Logger logger = LoggerFactory.getLogger(CbrIo.class);
 	
 	public CbrIo() {
-		super(FileType.CBR);
+		super(ComicBookFormat.CBR);
 	}
 
 	@Override
@@ -92,6 +92,9 @@ public class CbrIo extends AbstractIo {
 					e.printStackTrace();
 				}
 		    }
+		}
+		catch (NullPointerException e) {
+			throw new IOException("Failed to load CBR file", e);
 		}
 		catch (RarException e) {
 			throw new IOException("This don't work dumbass!");
