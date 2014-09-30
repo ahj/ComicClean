@@ -19,11 +19,7 @@ public class ComicBook {
 		this(new ArrayList<ComicImage>());
 	}
 	
-	/**
-	 * @deprecated  ComicBooks start off empty or get loaded using the read method.
-	 * @param images
-	 */
-	public ComicBook(List<ComicImage> images) {
+	private ComicBook(List<ComicImage> images) {
 		super();
 		
 		this.images = images;

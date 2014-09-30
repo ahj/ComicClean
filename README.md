@@ -25,5 +25,5 @@ ComicBook book = com.ahj.comic.ComicBook.read(<bookFile>, <workingDirectoryFile>
 
 book.filter(new ComicSizeStandardDeviationFilter());
 
-book.write(<bookFile>, BookFormat);
+book.write(<bookFile>, <ComicBookFormat [CBZ|CBT|PDF]>);
 ```

@@ -40,6 +40,7 @@ import com.ahj.comic.util.FileUtil;
 public class ComicApp extends JFrame implements Application {
 	private static final long serialVersionUID = 1L;
 
+	private ComicBook book = null;
 	private JList<ComicImage> list;
 	private JLabel view;
 	
@@ -132,7 +133,7 @@ public class ComicApp extends JFrame implements Application {
     		listModel.clear();
 	    	
     		try {
-	    		ComicBook book = ComicBook.read(file, workDir);
+	    		book = ComicBook.read(file, workDir);
 	    	
 	    		for (ComicImage image : book.getImages()) {
 	    			listModel.addElement(image);
@@ -159,12 +160,9 @@ public class ComicApp extends JFrame implements Application {
 	    	File file = chooser.getSelectedFile();
 	    	FileNameExtensionFilter filter = (FileNameExtensionFilter)chooser.getFileFilter();
 	    	ComicBookFormat type = ComicBookFormat.extensionOf(filter.getExtensions()[0]);
-	    	List<ComicImage> list = listModelToList();
+	    	//List<ComicImage> list = listModelToList();
 
 	    	try {
-	    		//TODO Keep reference to book around
-	    		ComicBook book = new ComicBook(list);
-	    		
 	    		book.write(file, type);
     		}
     		catch (IOException e) {
