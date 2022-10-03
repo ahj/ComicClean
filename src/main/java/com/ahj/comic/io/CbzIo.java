@@ -53,6 +53,10 @@ public class CbzIo extends AbstractIo {
 				}
 				
 				File imageFile = new File(workDir, entry.getName());
+
+				if (!imageFile.toPath().normalize().startsWith(workDir.toPath().normalize())) {
+					throw new IOException("Bad zip entry");
+				}
 				
  				if (entry.isDirectory() ||
  				    // Nasty hack to avoid outputing metadata folders that
